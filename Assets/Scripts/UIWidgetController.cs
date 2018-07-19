@@ -8,6 +8,12 @@ public class UIWidgetController : MonoBehaviour {
     private GameEvent evt = null;
     private static Dictionary<string, GameObject> widgets = new Dictionary<string, GameObject>();
 
+    //ui 层次
+    private Canvas mCanvas = null;
+    private int layerIndex = 1;
+
+    private bool isStart = false;
+
     public static GameObject Show(string path)
     {
         return Show(path, new GameEvent(0));
@@ -49,6 +55,50 @@ public class UIWidgetController : MonoBehaviour {
 
         return gameObject;
     }
+
+    public static void Hide(string path)
+    {
+        GameObject gameObject = null;
+        if (widgets.TryGetValue(path,out gameObject))
+        {
+            widgets.Remove(path);
+            Hide(gameObject);
+        }
+    }
+
+    public static void Hide(GameObject gameObject)
+    {
+        UIWidgetController uIWidgetController = gameObject.GetComponent<UIWidgetController>();
+        gameObject.SendMessage("OnHide",SendMessageOptions.DontRequireReceiver);
+        //将对象存储
+        GameObectManager.GetInstance().StoreObject(gameObject,"UI/"+uIWidgetController.path);
+        widgets.Remove(gameObject.name);
+        uIWidgetController.evt = new GameEvent(0);
+    }
+
+
+    public static void RegisterWidget(string path, int showCode, int hideCode)
+    {
+        GameEventCenter gameEventCenter = GameEventCenter.GetInstance();
+        gameEventCenter.RegisterEvent(showCode,delegate(GameEvent evt) {
+            Show(path);
+
+        });
+        gameEventCenter.RegisterEvent(hideCode, delegate(GameEvent evt) {
+            Hide(path);
+
+        });
+    }
+
+    public static void DispatchEvent(int code)
+    {
+        GameEventCenter.GetInstance().DispatchEvent(code);
+    }
+
+    public static void DispatchEvent(GameEvent evt)
+    {
+        GameEventCenter.GetInstance().DispatchEvent(evt);
+    }
 	// Use this for initialization
 	void Start () {
 		
@@ -56,6 +106,40 @@ public class UIWidgetController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (!isStart)
+        {
+            isStart = true;
+            ReOrder();
+            gameObject.SendMessage("OnShow", SendMessageOptions.DontRequireReceiver);
+        }
 	}
+
+    public int GetUIZOrder()
+    {
+        if (mCanvas == null)
+        {
+            return 0;
+        }else
+        {
+            return mCanvas.sortingOrder;
+        }
+    }
+
+    private void ReOrder()
+    {
+        if (mCanvas == null)
+        {
+            Canvas canvas = gameObject.GetComponent<Canvas>();
+            if (canvas == null)
+            {
+                canvas = gameObject.AddComponent<Canvas>();
+            }else
+            {
+                mCanvas = canvas;
+            }
+        }
+        layerIndex += 1;
+        mCanvas.overrideSorting = true;
+        mCanvas.sortingOrder = layerIndex;
+    }
 }

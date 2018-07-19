@@ -165,6 +165,7 @@ public class GameObectManager : MonoBehaviour {
             Debug.LogFormat("Can not get prefab {0}",path);
 #endif
         }
+        return CreateObject(uiPrefab, path);
     }
 
     public bool StoreObject(GameObject obj, string path)
