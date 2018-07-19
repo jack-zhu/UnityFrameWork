@@ -37,6 +37,24 @@ public class ResourceManager {
         return assetBundleManifest != null;
     }
 
+    public static T LoadResource<T>(string path, string name) where T : Object
+    {
+        T obj = null;
+
+        AssetBundle assetBundle = LoadAssetBundle(path.ToLower() + ".asset", false);
+        if (assetBundle != null)
+        {
+            obj = assetBundle.LoadAsset<T>(name);
+        }
+
+        if (obj == null)
+        {
+            obj = Resources.Load<T>(GetResourcePath(path, name));
+        }
+
+        return obj;
+    }
+
     //load assetbundl
     private static AssetBundle LoadAssetBundle(string path, bool cascade = true)
     {
@@ -81,6 +99,7 @@ public class ResourceManager {
         }
     }
 
+    //销毁assetbundle
     private static void DestroyAssetBundle(string abName, bool cascade = true)
     {
         AssetBundleInfo assetBundleInfo = null;
@@ -104,4 +123,47 @@ public class ResourceManager {
         }
 
     }
+
+    //卸载资源（先看是否是assetbundle，然后再销毁resource文件夹的文件）
+    public static void DestroyResource(string path)
+    {
+        string name = path.ToLower() + ".asset";
+        DestroyAssetBundle(name);
+
+        GameObject obj = null;
+        if (resourceCache.TryGetValue(path, out obj))
+        {
+            resourceCache.Remove(path);
+            Resources.UnloadAsset(obj);
+        }
+    }
+
+    //获取dir + "/" + name
+    private static string GetResourcePath(string path, string name)
+    {
+        string dirName = path.EndsWith(name) ? GetDirectoryPath(path) : path;
+        return string.IsNullOrEmpty(dirName) ? name : dirName + "/" + name;
+    }
+
+    //获取文件名称
+    public static string GetFileName(string path)
+    {
+        int index = path.LastIndexOf("/");
+        if (index > 0)
+        {
+            return path.Substring(index + 1);
+        }
+        return path;
+    }
+
+    //获取文件夹路径
+    public static string GetDirectoryPath(string path){
+        int index = path.LastIndexOf("/");
+        if (index > 0)
+        {
+            return path.Substring(0, index);
+        }
+        return path;
+    }
+
 }
