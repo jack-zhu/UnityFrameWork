@@ -61,12 +61,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AssetBundleInfo.cs" />
-    <Compile Include="Assets\GameEventCenter.cs" />
-    <Compile Include="Assets\GameEventCode.cs" />
-    <Compile Include="Assets\GameObectManager.cs" />
-    <Compile Include="Assets\IOUtils.cs" />
-    <Compile Include="Assets\ResourceManager.cs" />
+    <Compile Include="Assets\Scripts\AssetBundleInfo.cs" />
+    <Compile Include="Assets\Scripts\GameEventCenter.cs" />
+    <Compile Include="Assets\Scripts\GameEventCode.cs" />
+    <Compile Include="Assets\Scripts\GameObectManager.cs" />
+    <Compile Include="Assets\Scripts\IOUtils.cs" />
+    <Compile Include="Assets\Scripts\ResourceManager.cs" />
+    <Compile Include="Assets\Scripts\UIWidgetController.cs" />
     <Compile Include="Assets\Test.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/jack/UnityProject/UnityFrameWork/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
