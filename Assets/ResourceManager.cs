@@ -166,4 +166,18 @@ public class ResourceManager {
         return path;
     }
 
+    public static T LoadResource<T>(string path) where T :Object
+    {
+        return LoadResource<T>(GetDirectoryPath(path), GetFileName(path));
+    }
+
+    public static GameObject LoadResourceUI(string path)
+    {
+        return LoadResource<GameObject>("UI" + path);
+    }
+
+    public static Sprite LoadResourceSprite(string path)
+    {
+        return LoadResource<Sprite>(GetDirectoryPath(path), GetFileName(path));
+    }
 }
