@@ -11,7 +11,7 @@ public class IOUtils
     {
     }
 
-
+    //向文件中写数据
     public static bool WriteToFile(byte[] bytes, string path)
     {
         bool result = false;
@@ -38,6 +38,7 @@ public class IOUtils
         return result;
     }
 
+    //目录不存在，生成目录
     public static bool CreateDirectories(string path)
     {
         bool result = true;
@@ -51,6 +52,7 @@ public class IOUtils
         return result;
     }
 
+    //删除目录
     public static void DeleteDirectory(string path)
     {
         if (Directory.Exists(path))
@@ -59,7 +61,7 @@ public class IOUtils
         }
     }
 
-    public const string ANDROID_ASSET_CLASS = "com.youxigu.util.IOUtils";
+    public const string ANDROID_ASSET_CLASS = "com.0373fang.util.IOUtils";
     private static AndroidJavaClass AndroidAssetManager = null;
     private static IntPtr methodID = IntPtr.Zero;
     private static AndroidJavaClass GetAndroidAssetManager()
@@ -125,6 +127,7 @@ public class IOUtils
         return null;
     }
 
+    // 判断文件是否存在
     public static bool IsFileExists(string path)
     {
         if (path.StartsWith("/"))

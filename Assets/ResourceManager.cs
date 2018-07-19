@@ -21,7 +21,7 @@ public class ResourceManager {
         
     }
 
-    //资源加载init阶段
+    //资源加载init阶段，先读取ab中的manifest文件，根据manifest再读取assetbundle和关联的ab
     public static bool Init()
     {
         string path = "Bundles";
@@ -61,7 +61,7 @@ public class ResourceManager {
         return assetBundleInfo.assetBundle;
     }
 
-
+    //加载关联的ab
     private static void LoadDependencies(string abName)
     {
         if (assetBundleManifest == null)
@@ -81,9 +81,27 @@ public class ResourceManager {
         }
     }
 
-    private static void DestoryAssetBundle(string abName, bool cascade = true)
+    private static void DestroyAssetBundle(string abName, bool cascade = true)
     {
+        AssetBundleInfo assetBundleInfo = null;
+        if (bundleCache.TryGetValue(abName, out assetBundleInfo))
+        {
+#if UNITY_EDITOR
+            Debug.LogFormat("DestroyAssetBundle {0}", abName);
+#endif
+            bundleCache.Remove(abName);
+            assetBundleInfo.assetBundle.Unload(true);
 
+            //删除关联的ab
+            if (cascade)
+            {
+                string[] abArray = assetBundleManifest.GetDirectDependencies(abName);
+                foreach (var item in abArray)
+                {
+                    DestroyAssetBundle(item, false);
+                }
+            }
+        }
 
     }
 }
