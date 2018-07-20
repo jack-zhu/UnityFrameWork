@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\GameObectManager.cs" />
     <Compile Include="Assets\Scripts\IOUtils.cs" />
     <Compile Include="Assets\Scripts\ResourceManager.cs" />
+    <Compile Include="Assets\Scripts\SceneController.cs" />
     <Compile Include="Assets\Scripts\UIWidgetController.cs" />
     <Compile Include="Assets\Scripts\WidgetConfig.cs" />
     <Compile Include="Assets\Test.cs" />

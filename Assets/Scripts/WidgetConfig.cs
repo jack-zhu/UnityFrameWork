@@ -26,7 +26,7 @@ public class WidgetConfig {
     {
         string[] props;
         int showCode, hideCode;
-        TextAsset textAsset = ResourceManager.LoadResource<TextAsset>("WidgetConfig", "WidgetConfig");
+        TextAsset textAsset = ResourceManager.LoadResourceTextAsset("WidgetConfig");
         string[] lines = textAsset.text.Split(new char[] {'\r', '\n'}, System.StringSplitOptions.RemoveEmptyEntries);
         foreach (var line in lines)
         {

@@ -180,4 +180,9 @@ public class ResourceManager {
     {
         return LoadResource<Sprite>(GetDirectoryPath(path), GetFileName(path));
     }
+
+    public static TextAsset LoadResourceTextAsset(string path)
+    {
+        return LoadResource<TextAsset>(GetDirectoryPath(path), GetFileName(path));
+    }
 }
