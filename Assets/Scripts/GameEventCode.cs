@@ -5,4 +5,6 @@ using UnityEngine;
 public enum GameEventCode {
     EVENT_SHOW_MAIN_WIDGET,
     EVENT_HIDE_MAIN_WIDGET,
+    EVENT_SHOW_MAIN_BASE_WIDGET,
+    EVENT_HIDE_MAIN_BASE_WIDGET,
 }

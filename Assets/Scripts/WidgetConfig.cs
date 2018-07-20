@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class WidgetConfig {
 
+    private static bool isInit = false;
 
     private static Dictionary<string, int> widgetEvents = new Dictionary<string, int>();
+
+    public static void Init()
+    {
+        if (!isInit)
+        {
+            isInit = true;
+            LoadConfig();
+        }
+    }
 
     public static void Register(string path, int showCode, int hideCode)
     {
@@ -17,10 +27,10 @@ public class WidgetConfig {
         string[] props;
         int showCode, hideCode;
         TextAsset textAsset = ResourceManager.LoadResource<TextAsset>("WidgetConfig", "WidgetConfig");
-        string[] lines = textAsset.text.Split(new char[] { "\n", "\r" }, System.StringSplitOptions.RemoveEmptyEntries);
+        string[] lines = textAsset.text.Split(new char[] {'\r', '\n'}, System.StringSplitOptions.RemoveEmptyEntries);
         foreach (var line in lines)
         {
-            props = line.Split("=");
+            props = line.Split('=');
             if (props.Length > 1)
             {
                 showCode = GetEventCode("EVENT_SHOW_" + props[0].ToUpper() + "_WIDGET");
@@ -28,6 +38,8 @@ public class WidgetConfig {
                 Register(props[1], showCode, hideCode);
             }
         }
+        Resources.UnloadAsset(textAsset);
+        ResourceManager.DestroyResource("WidgetConfig");
     }
 
 
