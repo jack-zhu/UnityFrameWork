@@ -173,7 +173,12 @@ public class ResourceManager {
 
     public static GameObject LoadResourceUI(string path)
     {
-        return LoadResource<GameObject>("UI" + path);
+        return LoadResource<GameObject>("UI/" + path);
+    }
+
+    public static ResourceAsyncLoadingRequest<GameObject> AsyncLoadResourceUI(string path)
+    {
+        return LoadResourceAsync<GameObject>("UI/" + path);
     }
 
     public static Sprite LoadResourceSprite(string path)
@@ -184,5 +189,27 @@ public class ResourceManager {
     public static TextAsset LoadResourceTextAsset(string path)
     {
         return LoadResource<TextAsset>(GetDirectoryPath(path), GetFileName(path));
+    }
+
+    public static ResourceAsyncLoadingRequest<T> LoadResourceAsync<T>(string path) where T : Object
+    {
+        return LoadResourceAsync<T>(GetDirectoryPath(path), GetFileName(path));
+    }
+
+    //异步加载
+    public static ResourceAsyncLoadingRequest<T> LoadResourceAsync<T>(string path, string name) where T : Object
+    {
+        ResourceAsyncLoadingRequest<T> request = null;
+        T t = default(T);
+        AssetBundle assetBundle = LoadAssetBundle(path.ToLower() + ".asset", false);
+        if (assetBundle != null)
+        {
+            request = new ResourceAsyncLoadingRequest<T>(assetBundle.LoadAssetAsync<T>(name));
+        }
+        if (t == null)
+        {
+            request = new ResourceAsyncLoadingRequest<T>(Resources.LoadAsync<T>(GetResourcePath(path, name)));
+        }
+        return request;
     }
 }

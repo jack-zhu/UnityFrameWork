@@ -29,10 +29,45 @@ public class SceneController : MonoBehaviour {
     //开启协成进行异步加载
     IEnumerator OnLoad()
     {
+        //init
         float progressValue = 0;
         float progressMaxValue = (preLoad == null) ? widgets.Length : widgets.Length + preLoad.Length;
         loadingDialog.UpdateSlide("数据加载中...", progressValue, progressMaxValue);
         yield return new WaitForEndOfFrame();
+
+        //load widgets里面的数据
+        ResourceAsyncLoadingRequest<GameObject> request = null;
+        foreach (var widget in widgets)
+        {
+            string title = "正在加载" + ResourceManager.GetFileName(widget);
+            request = ResourceManager.AsyncLoadResourceUI(widget);
+            do
+            {
+                loadingDialog.UpdateSlide(title, progressValue + request.progress + 1, progressMaxValue);
+                yield return new WaitForEndOfFrame();
+            } while (!request.isDone);
+            progressValue++;
+        }
+
+        //load preload里面的数据
+        GameObectManager manager = GameObectManager.GetInstance();
+        if (preLoad != null)
+        {
+            foreach (var item in preLoad)
+            {
+                string title = "正在加载" + ResourceManager.GetFileName(item.name);
+                loadingDialog.UpdateSlide(title, progressValue + 1, progressMaxValue);
+                yield return new WaitForEndOfFrame();
+                manager.StoreObject(item.getObject(), item.name);
+                progressValue++;
+            }
+        }
+
+        //加载完成
+        loadingDialog.UpdateSlide("加载完毕...", progressMaxValue, progressMaxValue);
+        yield return new WaitForEndOfFrame();
+        ShowWidget();
+        LoadingDialog.Hide(loadingDialog.gameObject);
     }
 
 
@@ -52,5 +87,24 @@ public class SceneController : MonoBehaviour {
         {
             UIWidgetController.Show(item);
         }
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var widget in widgets)
+        {
+            UIWidgetController.Hide(widget);
+        }
+
+        GameObectManager manager = GameObectManager.GetInstance();
+        if (preLoad != null)
+        {
+            foreach (var item in preLoad)
+            {
+                manager.ClearObject(item.name);
+            }
+        }
+
+        Resources.UnloadUnusedAssets();
     }
 }

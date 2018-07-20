@@ -66,6 +66,8 @@
     <Compile Include="Assets\Scripts\GameEventCode.cs" />
     <Compile Include="Assets\Scripts\GameObectManager.cs" />
     <Compile Include="Assets\Scripts\IOUtils.cs" />
+    <Compile Include="Assets\Scripts\LoadingDialog.cs" />
+    <Compile Include="Assets\Scripts\ResourceAsyncLoadingRequest.cs" />
     <Compile Include="Assets\Scripts\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\SceneController.cs" />
     <Compile Include="Assets\Scripts\UIWidgetController.cs" />
@@ -309,7 +311,6 @@
     <Reference Include="Boo.Lang">
       <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll</HintPath>
     </Reference>
-    <Compile Include="Assets\Scripts\LoadingDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
