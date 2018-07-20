@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameEvent{
     public int code;
@@ -134,5 +135,8 @@ public class GameEventCenter : MonoBehaviour {
         DispatchEvent(evt);
     }
 
-
+    public int GetEventCode(string name)
+    {
+        return (int)(GameEventCode)Enum.Parse(typeof(GameEventCode), name);
+    }
 }
