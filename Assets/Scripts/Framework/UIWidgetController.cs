@@ -34,7 +34,7 @@ public class UIWidgetController : MonoBehaviour {
         }
         if (gameObject == null)
         {
-            gameObject = GameObectManager.GetInstance().CreateObject(path);
+            gameObject = GameObjectManager.GetInstance().CreateObject(path);
         }
 
         gameObject.transform.SetParent(parent);
@@ -71,7 +71,7 @@ public class UIWidgetController : MonoBehaviour {
         UIWidgetController uIWidgetController = gameObject.GetComponent<UIWidgetController>();
         gameObject.SendMessage("OnHide",SendMessageOptions.DontRequireReceiver);
         //将对象存储
-        GameObectManager.GetInstance().StoreObject(gameObject,"UI/"+uIWidgetController.path);
+        GameObjectManager.GetInstance().StoreObject(gameObject,"UI/"+uIWidgetController.path);
         widgets.Remove(gameObject.name);
         uIWidgetController.evt = new GameEvent(0);
     }

@@ -62,7 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Standard Assets\AssetBundleInfo.cs" />
-    <Compile Include="Assets\Standard Assets\GameObjectManager.cs" />
     <Compile Include="Assets\Standard Assets\IOUtils.cs" />
     <Compile Include="Assets\Standard Assets\ResourceAsyncLoadingRequest.cs" />
     <Compile Include="Assets\Standard Assets\ResourceManager.cs" />

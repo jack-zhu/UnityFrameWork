@@ -483,3 +483,4 @@
 /Users/jack/UnityProject/UnityFrameWork/Temp/bin/Debug/UnityEngine.StandardEvents.dll.mdb
 /Users/jack/UnityProject/UnityFrameWork/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
 /Users/jack/UnityProject/UnityFrameWork/Temp/bin/Debug/Unity.IvyParser.dll.mdb
+/Users/jack/UnityProject/UnityFrameWork/Temp/bin/Debug/Assembly-CSharp-firstpass.pdb

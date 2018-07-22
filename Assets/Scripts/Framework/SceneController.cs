@@ -50,7 +50,7 @@ public class SceneController : MonoBehaviour {
         }
 
         //load preload里面的数据
-        GameObectManager manager = GameObectManager.GetInstance();
+        GameObjectManager manager = GameObjectManager.GetInstance();
         if (preLoad != null)
         {
             foreach (var item in preLoad)
@@ -96,7 +96,7 @@ public class SceneController : MonoBehaviour {
             UIWidgetController.Hide(widget);
         }
 
-        GameObectManager manager = GameObectManager.GetInstance();
+        GameObjectManager manager = GameObjectManager.GetInstance();
         if (preLoad != null)
         {
             foreach (var item in preLoad)

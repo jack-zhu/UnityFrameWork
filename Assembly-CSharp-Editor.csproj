@@ -61,6 +61,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\BundleBuilder.cs" />
+    <Compile Include="Assets\Editor\BundleEditor.cs" />
     <Compile Include="Assets\Editor\editorTest.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/jack/UnityProject/UnityFrameWork/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
