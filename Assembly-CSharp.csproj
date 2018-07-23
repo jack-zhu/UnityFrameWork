@@ -61,10 +61,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Framework\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Framework\GameEventCenter.cs" />
     <Compile Include="Assets\Scripts\Framework\GameObjectManager.cs" />
     <Compile Include="Assets\Scripts\Framework\LogManager.cs" />
     <Compile Include="Assets\Scripts\Framework\SceneController.cs" />
+    <Compile Include="Assets\Scripts\Framework\ShowFps.cs" />
     <Compile Include="Assets\Scripts\Framework\UIWidgetController.cs" />
     <Compile Include="Assets\Scripts\Framework\WidgetConfig.cs" />
     <Compile Include="Assets\Scripts\GameEventCode.cs" />
